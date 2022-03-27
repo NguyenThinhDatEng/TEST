@@ -1,0 +1,13 @@
+{% extends 'firstApp/origin.html' %}
+{% block 1 %}
+    <h1>Hello everyone, Welcome to my website. Let's enjoy it</h1>
+    <h2>I'm {{name}}. Nice too meet you.</h2>
+    <h3>Technologies of interest</h3>
+    <ul>
+        {% for item in technology %}
+        <li>
+            {{item}}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

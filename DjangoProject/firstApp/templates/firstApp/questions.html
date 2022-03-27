@@ -1,0 +1,18 @@
+{% extends 'firstApp/origin.html' %}
+{% block 1 %}
+{% if questions %}
+<h1>List of questions</h1>
+<ul>
+    {% for item in questions %}
+    <h2>
+        <a href="http://127.0.0.1:8000/questions/{{item.id}}">
+            {{item.id}}. {{item.content}}</a>
+    </h2>
+
+    {% endfor %}
+</ul>
+{% else %}
+<h1>There are no questions!</h1>
+{% endif %}
+<a href="http://127.0.0.1:8000/" style="font-size:30px">back</a>
+{% endblock %}

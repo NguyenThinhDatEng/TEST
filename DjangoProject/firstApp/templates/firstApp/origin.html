@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Site</title>
+    <style>
+        .HEADER {
+            padding: 30px;
+            background-color: chartreuse;
+            color: brown
+        }
+    </style>
+</head>
+
+<body>
+    <div class="HEADER">
+        <h1>My header</h1>
+    </div>
+    <div class="MENU">
+        <h1>My menu</h1>
+        <ul>
+            <li><a href="http://127.0.0.1:8000/questions/">View list of questions</a></li>
+            <li>link2</li>
+            <li>link3</li>
+            <li>link4</li>
+        </ul>
+    </div>
+    <div class="CONTENT">
+        {% block 1%}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
