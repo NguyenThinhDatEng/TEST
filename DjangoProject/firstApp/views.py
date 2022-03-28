@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
+from django.http import HttpResponse
 from .models import Question
 
 # Create your views here.
@@ -24,3 +24,11 @@ def questionDetails(request, id):
     except:
         question = ''
     return render(request, 'firstApp/question_details.html', {'question': question})
+
+def choicesOfQuestion(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    data = request.POST['choice']
+    choice = question.choice_set.get(pk=data)
+    choice.choices += 1
+    choice.save()
+    return render(request, 'firstApp/voting_results.html', {'question' : question})

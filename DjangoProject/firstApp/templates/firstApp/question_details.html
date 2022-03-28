@@ -1,17 +1,20 @@
 {% extends 'firstApp/origin.html' %}
 {% block 1 %}
 {% if question %}
-<h3>{{question.content}}</h3>
-<ul>
-    {% for answer in question.choice_set.all %}
-    <li>
-        <input type="radio" name='choice'>
-        {{answer.choices}}. {{answer.answer}}
-        {% endfor %}
-    </li>
-</ul>
-{% else %}
-<h1>This question doesn't not exist!</h1>
+<form action="{% url 'choices' question.id %}" method='post'>
+    {% csrf_token %}
+    <h3 style="margin-left: 45px;">{{question.content}}</h3>
+    <ul>
+        {% for answer in question.choice_set.all %}
+        <h4>
+            <input type="radio" name='choice' value="{{answer.id}}">
+            {{answer.answer}}
+            {% endfor %}
+        </h4>
+    </ul>
+    {% else %}
+    <h1>This question doesn't not exist!</h1>
+</form>
 {% endif %}
-<a href="http://127.0.0.1:8000/questions" style="font-size:30px">back</a>
+<p style="margin-left: 50px;"><input type="submit" value="submit"></p>
 {% endblock %}

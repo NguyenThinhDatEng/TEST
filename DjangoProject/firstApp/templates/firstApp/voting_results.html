@@ -1,0 +1,10 @@
+{% extends 'firstApp/origin.html' %}
+{% block 1 %}
+<h1>{{question.content}}</h1>
+<h2>Voting results are:</h2>
+<ul>
+    {% for choice in question.choice_set.all %}
+    <h3>{{choice.answer}}: {{choice.choices}}</h3>
+</ul>
+{% endfor %}
+{% endblock %}
