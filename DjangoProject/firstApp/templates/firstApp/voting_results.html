@@ -4,7 +4,7 @@
 <h2>Voting results are:</h2>
 <ul>
     {% for choice in question.choice_set.all %}
-    <h3>{{choice.answer}}: {{choice.choices}}</h3>
+    <h3>{{choice.answer}}:<span style="color:red"> {{choice.choices}}</span></h3>
+    {% endfor %}
 </ul>
-{% endfor %}
 {% endblock %}
