@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,13 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website</title>
-    <style>
-        .HEADER {
-            padding: 30px;
-            background-color: chartreuse;
-            color: brown
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'firstApp/style.css' %}">
 </head>
 
 <body>
@@ -22,7 +17,7 @@
     <div class="MENU">
         <h1>My menu</h1>
         <ul>
-            <li><a href="{% url 'list' %}">View list of questions</a></li>
+            <li><a href="{% url 'firstApp:list' %}">View list of questions</a></li>
             <li>link2</li>
             <li>link3</li>
             <li>link4</li>

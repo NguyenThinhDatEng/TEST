@@ -1,7 +1,7 @@
 {% extends 'firstApp/origin.html' %}
 {% block 1 %}
 {% if question %}
-<form action="{% url 'choices' question.id %}" method='post'>
+<form action="{% url 'firstApp:choices' question.id %}" method='post'>
     {% csrf_token %}
     <h3 style="margin-left: 45px;">{{question.content}}</h3>
     <ul>
