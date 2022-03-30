@@ -11,5 +11,7 @@ urlpatterns = [
     path('', views.hello, name='home'),
     path('questions/', views.listOfQuestions, name='list'),
     path('questions/<int:id>', views.questionDetails, name='detail'),
-    path('choices/<int:question_id>', views.choicesOfQuestion, name='choices')
+    path('choices/<int:question_id>', views.showChoices, name='choices'),
+    path('addQuestion', views.addForm, name='add'),
+    path('save', views.saveQuestion, name='save'),
 ]

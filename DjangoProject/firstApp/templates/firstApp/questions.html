@@ -6,7 +6,7 @@
     {% for item in questions %}
     <h2>
         <a href="{% url 'firstApp:detail' item.id %}">
-            {{item.content}}</a>
+            {{item.title}}</a>
     </h2>
 
     {% endfor %}
