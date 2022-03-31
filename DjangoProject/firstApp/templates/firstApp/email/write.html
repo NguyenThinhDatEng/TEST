@@ -1,0 +1,14 @@
+{% extends 'firstApp/origin.html' %}
+{% block 1 %}
+<form action="{% url 'firstApp:letter' %}" method='post' style="margin-left: 50px;">
+    <!-- <ul> -->
+    {% csrf_token %}
+    <h3>Title: {{ email.title }}</h3>
+    <h3>To: {{ email.to }}</h3>
+    <h3>Content: </h3>
+    {{ email.content }}
+    <p><input type="submit" value="send"></p>
+    <!-- </ul> -->
+</form>
+<a href="{% url 'firstApp:home' %}" style="font-size:30px">back</a>
+{% endblock %}

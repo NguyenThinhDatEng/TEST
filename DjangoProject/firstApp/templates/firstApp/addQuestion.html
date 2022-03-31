@@ -4,10 +4,6 @@
     {% csrf_token %}
     <h2>Question:</h2>
     <p><h3>{{questionObj}}</h3></p>
-    <!-- <h2>Choices:</h2> -->
-    <p><h3>{{choiceObj.question}}</h3></p>
-    <!-- <p><h3>{{choiceObj.answer}}</h3></p>
-    <p><h3>{{choiceObj.choices}}</h3></p> -->
     <p><input type="submit" value="save"></p>
 </form>
 <a href="{% url 'firstApp:home' %}" style="font-size:30px">back</a>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Question
-from .forms import PostQuestion, PostChoice
+from .forms import PostQuestion, Email
 
 
 def hello(request):
@@ -10,7 +10,7 @@ def hello(request):
         'Linux', 'Docker', 'Jdpaint', 'Python', 'Octave']}
     return render(request, 'firstApp/index.html', parameters)
 
-
+# Question
 def listOfQuestions(request):
     questions = Question.objects.all()
     parameters = {'questions': questions}
@@ -42,18 +42,27 @@ def addForm(request):
 def saveQuestion(request):
     if request.method == 'POST':
         # get data
-        req = request.POST
-        # create a new question
-        try:
-            heading = req['title']
-        except KeyError:
-            print('No Key Found')
-        try:
-            question = Question(title=heading)
-        except:
-            print('SOS')
+        question = PostQuestion(request.POST) # type casting
         # save question to database
         question.save()
         return HttpResponse('Save successfully')
+    else:
+        return HttpResponse('Wrong method')
+
+# Email
+def write(request):
+    email = Email()
+    return render(request, 'firstApp/email/write.html', {'email': email})
+
+def showLetter(request):
+    if request.method == 'POST':
+        data = Email(request.POST)
+        print(data)
+        if data.is_valid():
+            letter = data.cleaned_data
+            # now in the object letter, you have the form as a dictionary.
+            return render(request, 'firstApp/email/showLetter.html', {'letter' : letter})
+        else:
+            return HttpResponse('Wrong fromat')
     else:
         return HttpResponse('Wrong method')

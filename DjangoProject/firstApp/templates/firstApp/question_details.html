@@ -1,6 +1,6 @@
 {% extends 'firstApp/origin.html' %}
 {% block 1 %}
-{% if question %}
+{% if question.choice_set.all %}
 <form action="{% url 'firstApp:choices' question.id %}" method='post'>
     {% csrf_token %}
     <h3 style="margin-left: 45px;">{{question.content}}</h3>
@@ -12,9 +12,9 @@
             {% endfor %}
         </h4>
     </ul>
+    <p style="margin-left: 50px;"><input type="submit" value="submit"></p>
     {% else %}
-    <h1>This question doesn't not exist!</h1>
+    <h1>No choice!</h1>
 </form>
 {% endif %}
-<p style="margin-left: 50px;"><input type="submit" value="submit"></p>
 {% endblock %}
