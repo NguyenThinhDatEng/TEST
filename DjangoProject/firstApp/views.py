@@ -11,6 +11,8 @@ def hello(request):
     return render(request, 'firstApp/index.html', parameters)
 
 # Question
+
+
 def listOfQuestions(request):
     questions = Question.objects.all()
     parameters = {'questions': questions}
@@ -42,7 +44,7 @@ def addForm(request):
 def saveQuestion(request):
     if request.method == 'POST':
         # get data
-        question = PostQuestion(request.POST) # type casting
+        question = PostQuestion(request.POST)  # type casting
         # save question to database
         question.save()
         return HttpResponse('Save successfully')
@@ -50,18 +52,22 @@ def saveQuestion(request):
         return HttpResponse('Wrong method')
 
 # Email
+
+
 def write(request):
     email = Email()
     return render(request, 'firstApp/email/write.html', {'email': email})
+
 
 def showLetter(request):
     if request.method == 'POST':
         data = Email(request.POST)
         print(data)
         if data.is_valid():
+            # email = data.cleaned_data['to']
             letter = data.cleaned_data
             # now in the object letter, you have the form as a dictionary.
-            return render(request, 'firstApp/email/showLetter.html', {'letter' : letter})
+            return render(request, 'firstApp/email/showLetter.html', {'letter': letter})
         else:
             return HttpResponse('Wrong fromat')
     else:
