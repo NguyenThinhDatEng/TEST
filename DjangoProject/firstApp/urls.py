@@ -15,4 +15,5 @@ urlpatterns = [
     path('save', views.SaveQuestion.as_view(), name='save'),    # merge add question and save
     path('write', views.write, name='write'),
     path('letter', views.showLetter, name='letter'),
+    path('login', views.Login.as_view(), name='login')
 ]

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth import authenticate
 from .models import Question
 from .forms import PostQuestion, Email
 
@@ -14,7 +15,7 @@ class Index(View):
         return render(request, 'firstApp/index.html', parameters)
 
 # Question
-
+# request.POST is a dictionary
 
 class SaveQuestion(View):
     def get(self, request):
@@ -78,3 +79,17 @@ def showLetter(request):
             return HttpResponse('Wrong fromat')
     else:
         return HttpResponse('Wrong method')
+
+# Login
+
+class Login(View):
+    def get(self, request):
+        return render(request, 'firstApp/login/login.html')
+
+    def post(seft, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        customer = authenticate(username=username, password=password)
+        if customer is None:
+            return HttpResponse('Customer does not exist')
+        return HttpResponse(f'{username}\n{password}')
