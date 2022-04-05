@@ -16,6 +16,19 @@ class Index(View):
 # Question
 
 
+class SaveQuestion(View):
+    def get(self, request):
+        question = PostQuestion()
+        return render(request, 'firstApp/question/addQuestion.html', {'questionObj': question})
+
+    def post(self, request):
+        # get data
+        question = PostQuestion(request.POST)  # type casting
+        # save question to database
+        question.save()
+        return HttpResponse('Save successfully')
+
+
 def listOfQuestions(request):
     questions = Question.objects.all()
     parameters = {'questions': questions}
@@ -43,16 +56,6 @@ def addForm(request):
     question = PostQuestion()
     return render(request, 'firstApp/question/addQuestion.html', {'questionObj': question})
 
-
-def saveQuestion(request):
-    if request.method == 'POST':
-        # get data
-        question = PostQuestion(request.POST)  # type casting
-        # save question to database
-        question.save()
-        return HttpResponse('Save successfully')
-    else:
-        return HttpResponse('Wrong method')
 
 # Email
 

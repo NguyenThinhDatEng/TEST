@@ -11,8 +11,8 @@ urlpatterns = [
     path('questions/', views.listOfQuestions, name='list'),
     path('questions/<int:id>', views.questionDetails, name='detail'),
     path('choices/<int:question_id>', views.showChoices, name='choices'),
-    path('addQuestion', views.addForm, name='add'),
-    path('save', views.saveQuestion, name='save'),
+    # path('addQuestion', views.addForm, name='add'),
+    path('save', views.SaveQuestion.as_view(), name='save'),    # merge add question and save
     path('write', views.write, name='write'),
     path('letter', views.showLetter, name='letter'),
 ]
