@@ -1,14 +1,17 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import View
 from .models import Question
 from .forms import PostQuestion, Email
 
+# function base view
 
-def hello(request):
-    # return HttpResponse('Hello owner, I am here')
-    parameters = {'name': 'Nguyen Van Thinh', 'technology': [
-        'Linux', 'Docker', 'Jdpaint', 'Python', 'Octave']}
-    return render(request, 'firstApp/index.html', parameters)
+
+class Index(View):
+    def get(self, request):
+        parameters = {'name': 'Nguyen Van Thinh', 'technology': [
+            'Linux', 'Docker', 'Jdpaint', 'Python', 'Octave']}
+        return render(request, 'firstApp/index.html', parameters)
 
 # Question
 
@@ -16,7 +19,7 @@ def hello(request):
 def listOfQuestions(request):
     questions = Question.objects.all()
     parameters = {'questions': questions}
-    return render(request, 'firstApp/questions.html', parameters)
+    return render(request, 'firstApp/question/questions.html', parameters)
 
 
 def questionDetails(request, id):
@@ -24,7 +27,7 @@ def questionDetails(request, id):
         question = Question.objects.get(pk=id)
     except:
         question = ''
-    return render(request, 'firstApp/question_details.html', {'question': question})
+    return render(request, 'firstApp/question/question_details.html', {'question': question})
 
 
 def showChoices(request, question_id):
@@ -33,12 +36,12 @@ def showChoices(request, question_id):
     choice = question.choice_set.get(pk=data)
     choice.choices += 1
     choice.save()
-    return render(request, 'firstApp/voting_results.html', {'question': question})
+    return render(request, 'firstApp/question/voting_results.html', {'question': question})
 
 
 def addForm(request):
     question = PostQuestion()
-    return render(request, 'firstApp/addQuestion.html', {'questionObj': question})
+    return render(request, 'firstApp/question/addQuestion.html', {'questionObj': question})
 
 
 def saveQuestion(request):
