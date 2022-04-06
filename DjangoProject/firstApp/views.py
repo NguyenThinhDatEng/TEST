@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, decorators
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Question
 from .forms import PostQuestion, Email
 
@@ -17,6 +18,7 @@ class Index(View):
 # Question
 # request.POST is a dictionary
 
+
 class SaveQuestion(View):
     def get(self, request):
         question = PostQuestion()
@@ -30,6 +32,7 @@ class SaveQuestion(View):
         return HttpResponse('Save successfully')
 
 
+@decorators.login_required(login_url='/login')  # decorator
 def listOfQuestions(request):
     questions = Question.objects.all()
     parameters = {'questions': questions}
@@ -82,6 +85,7 @@ def showLetter(request):
 
 # Login
 
+
 class Login(View):
     def get(self, request):
         return render(request, 'firstApp/login/login.html')
@@ -92,5 +96,17 @@ class Login(View):
         customer = authenticate(username=username, password=password)
         if customer is None:
             return HttpResponse('Customer does not exist')
-        login(request, customer) # user doesn't have to reauthenticate on every request
-        return HttpResponse(f'{username}\n{password}')
+        # Persist a user id and a backend in the request
+        # user doesn't have to reauthenticate on every request
+        login(request, customer)
+        return HttpResponse(f'Login successfully!')
+
+# must put LoginRequiredMixin before View
+
+
+class ViewOfUser(LoginRequiredMixin, View):
+    login_url = '/login'
+
+    def get(self, request):
+        # if request.user.is_authenticated:
+        return HttpResponse('<h1>The view of user!')
