@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from .models import Question
 from .forms import PostQuestion, Email
 
@@ -92,4 +92,5 @@ class Login(View):
         customer = authenticate(username=username, password=password)
         if customer is None:
             return HttpResponse('Customer does not exist')
+        login(request, customer) # user doesn't have to reauthenticate on every request
         return HttpResponse(f'{username}\n{password}')
