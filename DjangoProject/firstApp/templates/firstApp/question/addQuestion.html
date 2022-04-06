@@ -1,6 +1,6 @@
 {% extends 'firstApp/origin.html' %}
 {% block 1 %}
-<form action="{% url 'firstApp:save' %}" method='post' style="margin-left: 50px;">
+<form action="{% url 'firstApp:add' %}" method='post' style="margin-left: 50px;">
     {% csrf_token %}
     <h2>Question:</h2>
     <p><h3>{{questionObj}}</h3></p>

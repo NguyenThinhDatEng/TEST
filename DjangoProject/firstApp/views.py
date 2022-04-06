@@ -19,7 +19,9 @@ class Index(View):
 # request.POST is a dictionary
 
 
-class SaveQuestion(View):
+class AddQuestion(LoginRequiredMixin, View):
+    login_url = '/login'
+
     def get(self, request):
         question = PostQuestion()
         return render(request, 'firstApp/question/addQuestion.html', {'questionObj': question})
@@ -28,8 +30,12 @@ class SaveQuestion(View):
         # get data
         question = PostQuestion(request.POST)  # type casting
         # save question to database
-        question.save()
-        return HttpResponse('Save successfully')
+        # check permission
+        if request.user.has_perm('firstApp.add_question'):
+            question.save()
+            return HttpResponse('<h1>Save successfully')
+        else:
+            return HttpResponse('<h1>You are not authorized to perform this action')
 
 
 @decorators.login_required(login_url='/login')  # decorator
@@ -99,9 +105,11 @@ class Login(View):
         # Persist a user id and a backend in the request
         # user doesn't have to reauthenticate on every request
         login(request, customer)
+        for perm in request.user.get_all_permissions():
+            print(perm)
         return HttpResponse(f'Login successfully!')
 
-# must put LoginRequiredMixin before View
+# should put LoginRequiredMixin before View
 
 
 class ViewOfUser(LoginRequiredMixin, View):
