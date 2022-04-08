@@ -25,4 +25,4 @@ class User(AbstractUser):
     sex_choices = ((0, 'Male'), (1, 'Female'), (2, 'Unknown'))
     phone_number = models.CharField(max_length=11, null=False)
     # choices = object
-    sex = models.IntegerField(choices=sex_choices, default=0)
+    sex = models.IntegerField(choices=sex_choices, default=2)
